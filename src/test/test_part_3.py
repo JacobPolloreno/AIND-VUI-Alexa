@@ -10,8 +10,10 @@ import test.requests as requests
 from test.conftest import post
 from test.utils import _read_facts
 
-facts = _read_facts()
-facts = {k: v for k, v in facts.items() if 'facts_en_' in k}
+
+messages = _read_facts()
+fact_msgs = {k: v for k, v in messages.items() if 'get_fact_message'}
+facts = {k: v for k, v in messages.items() if 'facts_en_' in k}
 
 resultArr = []
 
@@ -55,8 +57,10 @@ def test_conversational_GetNewFactIntent_3(client):
     assert not response['response']['shouldEndSession'],\
         "should not end the alexa session"
 
-    # TODO
+    assert len(fact_msgs) >= 5,\
+        "should include at least 5 different phrase options"
 
+    assert 
 
 def test_conversational_GetNewFactIntent_valid_year(client):
     facts_str = ' '.join([v for k, v in facts.items()])

@@ -2,7 +2,7 @@ skill_name: My History facts
 help_message: You can say tell me a fact, or you can say exit... What can I help you with?
 help_reprompt: What can I help you with?
 stop_message: Goodbye!
-get_fact_message: Here's your fact 
+get_fact_message_1: Here's your fact 
 facts_en_1: The field of AI is considered to have its origin in 1950, with publication of British mathematician Alan Turing's paper, Computing Machinery and Intelligence.
 facts_en_2: The term, Artificial Intelligence, was coined in 1956 by mathematician and computer scientist John McCarthy, at Dartmouth College, in New Hampshire.
 facts_en_3: In 1997, a chess-playing program named Deep Blue, developed by IBM, beat the reigning world chess champion.

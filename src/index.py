@@ -10,17 +10,27 @@ import random
 import os
 
 from flask import Blueprint, Flask, render_template
-from flask_ask import Ask, statement, question, session
+from flask_ask import Ask, statement, question
 
 alexa = Blueprint('alexa', __name__)
 ask = Ask(route='/')
 
 templates_path = os.path.join(os.path.dirname(__file__), 'templates.yaml')
 
-"""
-    TODO (Part 2) add messages needed for the additional intent
-    TODO (Part 3) add reprompt messages as needed
-"""
+
+# TODO (Part 2) add an intent for specifying a fact by year named 'GetNewYearFactIntent'
+# TODO (Part 2) provide a function for the new intent named 'GetYearFact'
+#     that emits a randomized fact that includes the year requested by the user
+#     - if such a fact is not available, tell the user this and provide an alternative fact.
+# TODO (Part 3) Keep the session open by providing the fact with 'question'
+# instead of 'statement'. Be sure to include a card (e.g 'simple_card') with response.
+#     - make sure the user knows that they need to respond
+#     - provide a reprompt that lets the user know how they can respond
+# TODO (Part 3) Provide a randomized response for the GET_FACT_MESSAGE
+#     - add new messages to the templates.yaml file beggining with
+#     'get_facts_message_'
+#     - randomize this starting portion of the response for conversational
+#     variety(already implemented for you, see get_fact() line 49)
 
 
 @ask.launch
@@ -39,30 +49,22 @@ def get_fact():
         templates = f.read()
 
     templates = yaml.load(templates).keys()
+
+    # Select Fact
     factArr = [fact for fact in templates if 'facts_en' in
                fact]
     randomFact = render_template(random.choice(factArr))
 
+    # Select Fact Message (TODO Part 3: Add more)
+    factMsgs = [msg for msg in templates if 'get_fact_message' in msg]
+    randomMsg = render_template(random.choice(factMsgs))
+
     # Create speech output
-    speechOutput = render_template('get_fact_message') + ':' + randomFact
+    speechOutput = randomMsg + ' : ' + randomFact
 
     card_title = render_template('skill_name')
     return statement(speechOutput).simple_card(title=card_title,
                                                content=randomFact)
-
-
-"""
-    TODO (Part 2) add an intent for specifying a fact by year named 'GetNewYearFactIntent'
-    TODO (Part 2) provide a function for the new intent named 'GetYearFact'
-        that emits a randomized fact that includes the year requested by the user
-        - if such a fact is not available, tell the user this and provide an alternative fact.
-    TODO (Part 3) Keep the session open by providing the fact with :askWithCard instead of :tellWithCard
-        - make sure the user knows that they need to respond
-        - provide a reprompt that lets the user know how they can respond
-    TODO (Part 3) Provide a randomized response for the GET_FACT_MESSAGE
-        - add message to the array GET_FACT_MSG_EN
-        - randomize this starting portion of the response for conversational variety
-"""
 
 
 @ask.intent("AMAZON.HelpIntent")
