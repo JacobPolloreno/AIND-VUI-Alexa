@@ -46,12 +46,8 @@ def get_new_fact():
     return _read_request_json('get_new_fact.json')
 
 
-def get_new_year_fact_1():
-    return _read_request_json('get_new_year_fact_1.json')
-
-
-def get_new_year_fact_2():
-    return _read_request_json('get_new_year_fact_2.json')
+def get_new_year_fact():
+    return _read_request_json('get_new_year_fact.json')
 
 
 def say_nothing():

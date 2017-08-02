@@ -4,7 +4,6 @@
 Tests against My History Skill webapp logic
 """
 
-# import pytest
 import json
 import re
 import test.requests as requests
@@ -16,6 +15,8 @@ intents = json.load(schema)['intents']
 utterances = _read_speechassets('SampleUtterances_en_US.txt').readlines()
 facts = _read_facts()
 facts = {k: v for k, v in facts.items() if 'facts_en_' in k}
+
+resultArr = []
 
 
 def test_utterances_list_getNewYearFactIntent():
@@ -56,16 +57,19 @@ def test_intentSchema_slots():
     assert hasCorrectSlot, "should include a slot named FACT_YEAR"
 
 
-def test_getNewYearFactIntent_with_valid_year(client):
+def test_getNewYearFactIntent_valid_year(client):
     facts_str = ' '.join([v for k, v in facts.items()])
     years = re.findall('\d{4}', facts_str)
 
-    # Grab invalid year event
-    valid_year = json.load(requests.get_new_year_fact_1())
-    # Modify the year value in the json dict
-    valid_year['request']['intent']['slots']['FACT_YEAR']['value'] = years[0]
+    if len(years) > 0:
+        # Grab invalid year(9999) event
+        event = json.load(requests.get_new_year_fact())
+        # Modify the year value in the json dict
+        event['request']['intent']['slots']['FACT_YEAR']['value'] = years[0]
 
-    response = post(client, json.dumps(valid_year))
+        response = post(client, json.dumps(event))
+    else:
+        response = post(client, requests.get_new_year_fact())
 
     assert response['response'],\
         "should have a speechlet response"
@@ -75,3 +79,39 @@ def test_getNewYearFactIntent_with_valid_year(client):
 
     assert response['response']['card'],\
         "should have a card response"
+
+    assert years[0] in response['response']['outputSpeech'],\
+        "should have year in the spoken response"
+
+
+def test_getNewYearFactIntent_non_matching_year_1(client):
+    response = post(client, requests.get_new_year_fact())
+
+    assert response['response']['outputSpeech']['text'],\
+        "should receive response"
+
+    resultArr.append(response['response']['outputSpeech']['text'])
+
+
+def test_getNewYearFactIntent_non_matching_year_2(client):
+    response = post(client, requests.get_new_year_fact())
+
+    assert response['response']['outputSpeech']['text'],\
+        "should receive response"
+
+    resultArr.append(response['response']['outputSpeech']['text'])
+
+
+def test_getNewYearFactIntent_non_matching_year_3(client):
+    response = post(client, requests.get_new_year_fact())
+
+    assert response['response']['outputSpeech']['text'],\
+        "should receive response"
+
+    resultArr.append(response['response']['outputSpeech']['text'])
+
+    assert len(resultArr) >= 3,\
+        "should ahve run three times"
+
+    assert resultArr[0] != resultArr[1] or resultArr[1] != resultArr[2],\
+        "should have a random spoken sequence"
