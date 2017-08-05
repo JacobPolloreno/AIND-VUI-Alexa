@@ -2,7 +2,7 @@
     "session": {
       "sessionId": null,
       "application": {
-        "applicationId": "mochatest"
+        "applicationId": "pytest"
       },
       "attributes": {},
       "user": {

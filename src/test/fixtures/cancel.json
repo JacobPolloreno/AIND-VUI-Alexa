@@ -2,7 +2,7 @@
     "session": {
       "sessionId": null,
       "application": {
-        "applicationId": null
+        "applicationId": "pytest"
       },
       "attributes": {},
       "user": {
