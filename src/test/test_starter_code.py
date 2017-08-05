@@ -3,14 +3,12 @@
 """
 Tests against My History Skill webapp logic
 """
-
-import pytest
-
 import test.requests as requests
 from test.conftest import post
 
+import pytest
 
-resultArr = []
+RESULTS = []
 
 
 def test_cancel(client):
@@ -85,7 +83,7 @@ def test_get_new_fact_1(client):
 
     # add fact to array
     msg = response['response']['outputSpeech']['text']
-    resultArr.append(msg)
+    RESULTS.append(msg)
 
 
 def test_get_new_fact_2(client):
@@ -98,7 +96,7 @@ def test_get_new_fact_2(client):
 
     # add fact to array
     msg = response['response']['outputSpeech']['text']
-    resultArr.append(msg)
+    RESULTS.append(msg)
 
 
 def test_get_new_fact_3(client):
@@ -108,10 +106,10 @@ def test_get_new_fact_3(client):
 
     # add fact to array
     msg = response['response']['outputSpeech']['text']
-    resultArr.append(msg)
+    RESULTS.append(msg)
 
-    assert len(resultArr) >= 3,\
+    assert len(RESULTS) >= 3,\
         "should have run three times"
 
-    assert resultArr[0] != resultArr[1] or resultArr[1] != resultArr[2],\
+    assert RESULTS[0] != RESULTS[1] or RESULTS[1] != RESULTS[2],\
         "should have a random spoken sequence"

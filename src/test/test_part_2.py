@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 """
-Tests against My History Skill webapp logic
+Tests Part 2 against My History Skill webapp logic
 """
 
 import json
@@ -10,58 +10,58 @@ import test.requests as requests
 from test.conftest import post
 from test.utils import _read_speechassets, _read_facts
 
-schema = _read_speechassets('IntentSchema.json')
-intents = json.load(schema)['intents']
-utterances = _read_speechassets('SampleUtterances_en_US.txt').readlines()
-facts = _read_facts()
-facts = {k: v for k, v in facts.items() if 'facts_en_' in k}
+SCHEMA = _read_speechassets('IntentSchema.json')
+INTENTS = json.load(SCHEMA)['intents']
+UTTERANCES = _read_speechassets('SampleUtterances_en_US.txt').readlines()
+FACTS = _read_facts()
+FACTS = {k: v for k, v in FACTS.items() if 'facts_en_' in k}
 
-resultArr = []
+RESULTS = []
 
 
-def test_utterances_list_getNewYearFactIntent():
-    newYearUtterances = [u for u in utterances
-                         if 'GetNewYearFactIntent' in utterances]
-    assert len(newYearUtterances) >= 15,\
+def test_utterances_list_getnewyearfactintent():
+    new_year_utterances = [u for u in UTTERANCES
+                           if 'GetNewYearFactIntent' in u]
+    assert len(new_year_utterances) >= 15,\
         "should have at least 15 utterances for GetNewYearFactIntent"
 
     count = 0
-    for u in utterances:
-        count += len(re.findall('{FACT_YEAR}', u))
+    for utt in UTTERANCES:
+        count += len(re.findall('{FACT_YEAR}', utt))
 
     assert count >= 15,\
         "should have at least 15 FACT_YEAR slots"
 
 
-def test_intentSchema_slots():
-    hasYearIntent = False
+def test_intent_schema_slots():
+    has_year_intent = False
     slots = None
-    for intent in intents:
+    for intent in INTENTS:
         if intent['intent'] == 'GetNewYearFactIntent':
-            hasYearIntent = True
+            has_year_intent = True
             try:
                 slots = intent['slots']
             except KeyError:
                 slots = []
 
-    assert hasYearIntent,\
+    assert has_year_intent,\
         "should include GetNewYearFactIntent in IntentSchema.json"
 
-    assert len(slots), "should include a slot"
+    assert slots, "should include a slot"
 
-    hasCorrectSlot = False
+    has_corrrect_slot = False
     for slot in slots:
         if slot['name'] == 'FACT_YEAR':
-            hasCorrectSlot = True
+            has_corrrect_slot = True
 
-    assert hasCorrectSlot, "should include a slot named FACT_YEAR"
+    assert has_corrrect_slot, "should include a slot named FACT_YEAR"
 
 
-def test_getNewYearFactIntent_valid_year(client):
-    facts_str = ' '.join([v for k, v in facts.items()])
-    years = re.findall('\d{4}', facts_str)
+def test_getnewyearfactintent_valid_year(client):
+    facts_str = ' '.join([v for k, v in FACTS.items()])
+    years = re.findall(r'\d{4}', facts_str)
 
-    if len(years) > 0:
+    if years:
         # Grab invalid year(9999) event
         event = json.load(requests.get_new_year_fact())
         # Modify the year value in the json dict
@@ -84,34 +84,34 @@ def test_getNewYearFactIntent_valid_year(client):
         "should have year in the spoken response"
 
 
-def test_getNewYearFactIntent_non_matching_year_1(client):
+def test_getnewyearfactintent_non_matching_year_1(client):
     response = post(client, requests.get_new_year_fact())
 
     assert response['response']['outputSpeech']['text'],\
         "should receive response"
 
-    resultArr.append(response['response']['outputSpeech']['text'])
+    RESULTS.append(response['response']['outputSpeech']['text'])
 
 
-def test_getNewYearFactIntent_non_matching_year_2(client):
+def test_getnewyearfactintent_non_matching_year_2(client):
     response = post(client, requests.get_new_year_fact())
 
     assert response['response']['outputSpeech']['text'],\
         "should receive response"
 
-    resultArr.append(response['response']['outputSpeech']['text'])
+    RESULTS.append(response['response']['outputSpeech']['text'])
 
 
-def test_getNewYearFactIntent_non_matching_year_3(client):
+def test_getnewyearfactintent_non_matching_year_3(client):
     response = post(client, requests.get_new_year_fact())
 
     assert response['response']['outputSpeech']['text'],\
         "should receive response"
 
-    resultArr.append(response['response']['outputSpeech']['text'])
+    RESULTS.append(response['response']['outputSpeech']['text'])
 
-    assert len(resultArr) >= 3,\
+    assert len(RESULTS) >= 3,\
         "should ahve run three times"
 
-    assert resultArr[0] != resultArr[1] or resultArr[1] != resultArr[2],\
+    assert RESULTS[0] != RESULTS[1] or RESULTS[1] != RESULTS[2],\
         "should have a random spoken sequence"

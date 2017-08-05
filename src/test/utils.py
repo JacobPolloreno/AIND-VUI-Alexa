@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 """
-Tests against My History Skill webapp logic
+Utils for testing
 """
 
 import os
@@ -32,3 +32,17 @@ def _read_facts():
 
 def has_four_digit_number(fact):
     return len(re.findall(r'(\d{4})', fact)) > 0
+
+
+def get_num_included_phrases(results, fact_msgs):
+    """
+    """
+
+    included_fact_msgs = []
+
+    for r in results:
+        for f_k, f_v in fact_msgs.items():
+            if f_v in r:
+                included_fact_msgs.append(f_k)
+
+    return len(set(included_fact_msgs)) > 1

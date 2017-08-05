@@ -8,7 +8,7 @@ import json
 import re
 import test.requests as requests
 from test.conftest import post
-from test.utils import _read_facts
+from test.utils import _read_facts, get_num_included_phrases
 
 
 MESSAGES = _read_facts()
@@ -77,14 +77,7 @@ def test_conv_getnewfactintent_3(client):
     assert len(FACT_MSGS) >= 5,\
         "should include at least 5 different phrase options"
 
-    included_fact_msgs = []
-
-    for r in RESULTS:
-        for f_k, f_v in FACT_MSGS.items():
-            if f_v in r:
-                included_fact_msgs.append(f_k)
-
-    assert len(set(included_fact_msgs)) > 1,\
+    assert get_num_included_phrases(RESULTS, FACT_MSGS),\
         "should randomly include segments from the GET_FACT_MESSAGE templates"
 
 
