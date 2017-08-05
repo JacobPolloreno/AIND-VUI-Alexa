@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 """
-My History Facts
+My History Skill
 """
 
 import logging
-import yaml
 import random
 import os
+import yaml
 
 from flask import Blueprint, Flask, render_template
 from flask_ask import Ask, statement, question
@@ -15,7 +15,7 @@ from flask_ask import Ask, statement, question
 alexa = Blueprint('alexa', __name__)
 ask = Ask(route='/')
 
-templates_path = os.path.join(os.path.dirname(__file__), 'templates.yaml')
+TEMPLATES_PATH = os.path.join(os.path.dirname(__file__), 'templates.yaml')
 
 
 # TODO (Part 2) add an intent for specifying a fact by year named 'GetNewYearFactIntent'
@@ -45,7 +45,7 @@ def get_new_fact():
 
 @ask.intent("GetFact")
 def get_fact():
-    with open(templates_path) as f:
+    with open(TEMPLATES_PATH) as f:
         templates = f.read()
 
     templates = yaml.load(templates).keys()
