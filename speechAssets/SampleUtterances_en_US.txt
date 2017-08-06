@@ -13,3 +13,19 @@ GetNewFactIntent get a fact
 GetNewFactIntent get fact
 GetNewFactIntent best facts about AI
 GetNewFactIntent get a new fact
+
+GetNewYearFactIntent a fact from {FACT_YEAR}
+GetNewYearFactIntent tell me a fact from {FACT_YEAR}
+GetNewYearFactIntent What happened in {FACT_YEAR}
+GetNewYearFactIntent {FACT_YEAR} fact
+GetNewYearFactIntent best facts from {FACT_YEAR}
+GetNewYearFactIntent get {FACT_YEAR} fact
+GetNewYearFactIntent tell {FACT_YEAR} fact
+GetNewYearFactIntent anything interesting from {FACT_YEAR}
+GetNewYearFactIntent Was {FACT_YEAR} a good year for AI
+GetNewYearFactIntent What about {FACT_YEAR}
+GetNewYearFactIntent something in {FACT_YEAR}
+GetNewYearFactIntent fact in {FACT_YEAR}
+GetNewYearFactIntent about {FACT_YEAR}
+GetNewYearFactIntent AI fact in {FACT_YEAR}
+GetNewYearFactIntent artificial intelligence fact from {FACT_YEAR}

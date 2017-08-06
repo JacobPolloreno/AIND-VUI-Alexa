@@ -18,8 +18,8 @@ ask = Ask(route='/')
 TEMPLATES_PATH = os.path.join(os.path.dirname(__file__), 'templates.yaml')
 
 
-# TODO (Part 2) add an intent for specifying a fact by year named 'GetNewYearFactIntent'
-# TODO (Part 2) provide a function for the new intent named 'GetYearFact'
+# (Part 2) add an intent for specifying a fact by year named 'GetNewYearFactIntent'
+# (Part 2) provide a function for the new intent named 'GetYearFact'
 #     that emits a randomized fact that includes the year requested by the user
 #     - if such a fact is not available, tell the user this and provide an alternative fact.
 # TODO (Part 3) Keep the session open by providing the fact with 'question'
@@ -65,6 +65,36 @@ def get_fact():
     card_title = render_template('skill_name')
     return statement(speechOutput).simple_card(title=card_title,
                                                content=randomFact)
+
+
+@ask.intent("GetNewYearFactIntent")
+def get_new_year_fact(FACT_YEAR):
+    with open(TEMPLATES_PATH) as f:
+        templates = f.read()
+
+    templates = yaml.load(templates)
+
+    # Get All Facts
+    facts = {k: v for k, v in templates.items() if 'facts_en' in k}
+
+    # Check if there's a fact that contains the given year requested
+    # if not then return a random fact
+    fact_msg = [k for k, v in facts.items() if FACT_YEAR in v]
+    if fact_msg:
+        fact_msg = render_template(fact_msg[0])
+    else:
+        fact_msg = render_template(random.choice(list(facts.keys())))
+
+    # Select Fact Message (TODO Part 3: Add more)
+    get_fact_msgs = [msg for msg in templates if 'get_fact_message' in msg]
+    random_msg = render_template(random.choice(get_fact_msgs))
+
+    # Create speech output
+    speech_output = random_msg + ' : ' + fact_msg
+
+    card_title = render_template('skill_name')
+    return statement(speech_output).simple_card(title=card_title,
+                                                content=fact_msg)
 
 
 @ask.intent("AMAZON.HelpIntent")
