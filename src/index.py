@@ -27,7 +27,7 @@ TEMPLATES_PATH = os.path.join(os.path.dirname(__file__), 'templates.yaml')
 #     - make sure the user knows that they need to respond
 #     - provide a reprompt that lets the user know how they can respond
 # TODO (Part 3) Provide a randomized response for the GET_FACT_MESSAGE
-#     - add new messages to the templates.yaml file beggining with
+#     - add new messages to the templates.yaml file prefixed with
 #     'get_facts_message_'
 #     - randomize this starting portion of the response for conversational
 #     variety(already implemented for you, see get_fact() line 49)
@@ -51,20 +51,19 @@ def get_fact():
     templates = yaml.load(templates).keys()
 
     # Select Fact
-    factArr = [fact for fact in templates if 'facts_en' in
-               fact]
-    randomFact = render_template(random.choice(factArr))
+    facts = [fact for fact in templates if 'facts_en' in fact]
+    random_fact = render_template(random.choice(facts))
 
     # Select Fact Message (TODO Part 3: Add more)
-    factMsgs = [msg for msg in templates if 'get_fact_message' in msg]
-    randomMsg = render_template(random.choice(factMsgs))
+    fact_msgs = [msg for msg in templates if 'get_fact_message' in msg]
+    random_msg = render_template(random.choice(fact_msgs))
 
     # Create speech output
-    speechOutput = randomMsg + ' : ' + randomFact
+    speech_output = random_msg + ' : ' + random_fact
 
     card_title = render_template('skill_name')
-    return statement(speechOutput).simple_card(title=card_title,
-                                               content=randomFact)
+    return statement(speech_output).simple_card(title=card_title,
+                                                content=random_fact)
 
 
 @ask.intent("AMAZON.HelpIntent")
