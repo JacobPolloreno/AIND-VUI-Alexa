@@ -8,4 +8,10 @@ facts_en_2: The term, Artificial Intelligence, was coined in 1956 by mathematici
 facts_en_3: In 1997, a chess-playing program named Deep Blue, developed by IBM, beat the reigning world chess champion.
 facts_en_4: A so-called AI Winter occurred in 1974, when funding was cut after Speech Understanding research did not live up to its promise.
 facts_en_5: A driverless robotic car named Stanley, engineered by Sebastian Thrun's Stanford Racing team, sped through the Mojave desert at 22 miles per hour to win the 2005 Darpa Grand Challenge.
-facts_en_6: Replace me and add some more facts!
+
+# Part 1 - Add more facts
+facts_en_6: In 1950, Isaac Asimov published his three laws of robotics; One, a robot may not injure a human being, or, through inaction, allow a human being to come to harm. Two, a robot must obey the orders given it by human beings except where such orders would conflict with the First Law. Lastly, a robot must protect its own existence as long as such protection does not conflict with the First or Second Law.
+facts_en_7: In 1952, Arthur Samuel, from IBM, wrote the first game-playing program, for checkers, to achieve sufficient skill to challenge a world champion. Samuel's machine learning programs were responsible for the high performance of the checkers player.  
+facts_en_8: In 1965, Joseph Weizenbaum, from MIT, built ELIZA, an interactive program that carries on a dialogue in English on any topic. It was a popular toy at AI centers on the ARPA-net when a version that simulated the dialogue of a psychotherapist was programmed. 
+facts_en_9: In 1985, Neural Networks become widely used with the Backpropagation algorithm, first described by Werbos in 1974. 
+facts_en_10: On July fourth 1997, NASA’s pathfinder mission made a successful landing and the first autonomous robotics system, Sojourner, was deployed on the surface of Mars.
