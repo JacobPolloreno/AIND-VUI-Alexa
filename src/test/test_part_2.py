@@ -80,7 +80,7 @@ def test_getnewyearfactintent_valid_year(client):
     assert response['response']['card'],\
         "should have a card response"
 
-    assert years[0] in response['response']['outputSpeech'],\
+    assert years[0] in response['response']['outputSpeech']['text'],\
         "should have year in the spoken response"
 
 
