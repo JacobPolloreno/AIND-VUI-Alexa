@@ -15,3 +15,13 @@ facts_en_7: In 1952, Arthur Samuel, from IBM, wrote the first game-playing progr
 facts_en_8: In 1965, Joseph Weizenbaum, from MIT, built ELIZA, an interactive program that carries on a dialogue in English on any topic. It was a popular toy at AI centers on the ARPA-net when a version that simulated the dialogue of a psychotherapist was programmed. 
 facts_en_9: In 1985, Neural Networks become widely used with the Backpropagation algorithm, first described by Werbos in 1974. 
 facts_en_10: On July fourth 1997, NASA’s pathfinder mission made a successful landing and the first autonomous robotics system, Sojourner, was deployed on the surface of Mars.
+
+# Part 3 - Add Reprompt text
+reprompt_msg: Hope you enjoyed that fact... You can say tell me a fact, or you can say exit.
+
+# Part 3 - Add more get fact phrases
+get_fact_message_2: Fact,
+get_fact_message_3: Here's something interesting
+get_fact_message_4: Let's learn about AI 
+get_fact_message_5: Here's an interesting fact about AI   
+get_fact_message_6: This one is my favorite
