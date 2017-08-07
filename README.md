@@ -14,7 +14,7 @@ We highly recommend you complete the Space Geek lab in the classroom, which step
 
 ### Starter Code
 Install your starter code locally.
-* Download or clone the [starter code](https://github.com/JacobPolloreno/Alexa-History-Skill) from GitHub
+* Download or clone the [starter code](https://github.com/JacobPolloreno/AIND-VUI-Alexa) from GitHub
 * Save it in a directory named `Alexa-History-Skill`.  It contains the following directories and files:
     - **speechAssets/IntentSchema.json**  - intents definition for the interactive model
     - **speechAssets/SampleUtterances_en_US.txt** - utterances for the interactive model
