@@ -61,18 +61,14 @@ $ pytest -rsx
 
 The test code is in four parts:  "Part 1", "Part 2", "Part 3", and "Starter Code". The starter code tests should pass and all others should fail.
 
-	* **Note:** Some test are 'skipped' because something hasn't been implemented yet. The
-	  output gets really long and makes it hard to debug with the NotImplementedErros so I
-	  decided to skip the test and warn the user. However, in order to see that the test are
-	  skipped you'll need to run 'pytest' with 
+* **Note:** Some test are __skipped__ because you haven't implemented everything yet to run it.
+	- Why skip? The output gets really long and makes it hard to debug with the 'NotImplementedErrors' so I decided to skip the test and warn the user. However, in order to see that the test are skipped you'll need to run 'pytest' with flags _' -rsx'_
 
 You can run each individual part like so:
 
 ```shell
 $ pytest -rsx src/tests/test_starter_code.py
 ```
-	* -r chars will show extra test summary info such as why some test are skipped. I chose to
-	  skip certain test if their prerequisites were not implemented yet.
 
 ##### 4. Flask-ask Coding
 * Make sure to checkout the documentation on the [Flask-ask Github Repo](https://github.com/johnwheeler/flask-ask). 

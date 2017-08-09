@@ -5,16 +5,27 @@ Tests Part 3 against My History Skill webapp logic
 """
 
 import json
+import pytest
 import re
 import test.requests as requests
 from test.conftest import post
-from test.utils import _read_facts, get_num_included_phrases
+from test.utils import _read_facts, get_num_included_phrases, has_year_intent_schema
 
 
 MESSAGES = _read_facts()
 FACT_MSGS = {k: v for k, v in MESSAGES.items() if 'get_fact_message_' in k}
 FACTS = {k: v for k, v in MESSAGES.items() if 'facts_en_' in k}
 RESULTS = []
+
+# Instead of getting a NotImplementedError with long debuggin output,
+# we can skip some of the test and output a reason to make reading
+# the test easier.
+SKIP_REASON = """
+    Not Implemented Error:
+        should include 'GetNewYearFactIntent' in
+        IntentSchema.json first then continue testing.
+        This test will not be skipped afterwards.
+"""
 
 
 def test_conv_getnewfactintent_1(client):
@@ -81,6 +92,8 @@ def test_conv_getnewfactintent_3(client):
         "should randomly include segments from the GET_FACT_MESSAGE templates"
 
 
+@pytest.mark.skipif(not has_year_intent_schema(),
+                    reason=SKIP_REASON)
 def test_conv_getnewyearfactintent_valid_year(client):
     """
     User should get a new fact based on a valid year, Amazon
@@ -110,6 +123,8 @@ def test_conv_getnewyearfactintent_valid_year(client):
         "should not end the alexa session"
 
 
+@pytest.mark.skipif(not has_year_intent_schema(),
+                    reason=SKIP_REASON)
 def test_conv_getnewyearfactintent_non_matching(client):
     """
     User should get a new fact based on a invalid year, Amazon

@@ -5,10 +5,11 @@ Tests Part 2 against My History Skill webapp logic
 """
 
 import json
+import pytest
 import re
 import test.requests as requests
 from test.conftest import post
-from test.utils import _read_speechassets, _read_facts
+from test.utils import _read_speechassets, _read_facts, has_year_intent_schema
 
 SCHEMA = _read_speechassets('IntentSchema.json')
 INTENTS = json.load(SCHEMA)['intents']
@@ -17,6 +18,16 @@ FACTS = _read_facts()
 FACTS = {k: v for k, v in FACTS.items() if 'facts_en_' in k}
 
 RESULTS = []
+
+# Instead of getting a NotImplementedError with long debuggin output,
+# we can skip some of the test and output a reason to make reading
+# the test easier.
+SKIP_REASON = """
+    Not Implemented Error:
+        should include 'GetNewYearFactIntent' in
+        IntentSchema.json first then continue testing.
+        This test will not be skipped afterwards.
+"""
 
 
 def test_utterances_list_getnewyearfactintent():
@@ -57,6 +68,8 @@ def test_intent_schema_slots():
     assert has_corrrect_slot, "should include a slot named FACT_YEAR"
 
 
+@pytest.mark.skipif(not has_year_intent_schema(),
+                    reason=SKIP_REASON)
 def test_getnewyearfactintent_valid_year(client):
     facts_str = ' '.join([v for k, v in FACTS.items()])
     years = re.findall(r'\d{4}', facts_str)
@@ -84,6 +97,8 @@ def test_getnewyearfactintent_valid_year(client):
         "should have year in the spoken response"
 
 
+@pytest.mark.skipif(not has_year_intent_schema(),
+                    reason=SKIP_REASON)
 def test_getnewyearfactintent_non_matching_year_1(client):
     response = post(client, requests.get_new_year_fact())
 
@@ -93,6 +108,8 @@ def test_getnewyearfactintent_non_matching_year_1(client):
     RESULTS.append(response['response']['outputSpeech']['text'])
 
 
+@pytest.mark.skipif(not has_year_intent_schema(),
+                    reason=SKIP_REASON)
 def test_getnewyearfactintent_non_matching_year_2(client):
     response = post(client, requests.get_new_year_fact())
 
@@ -102,6 +119,8 @@ def test_getnewyearfactintent_non_matching_year_2(client):
     RESULTS.append(response['response']['outputSpeech']['text'])
 
 
+@pytest.mark.skipif(not has_year_intent_schema(),
+                    reason=SKIP_REASON)
 def test_getnewyearfactintent_non_matching_year_3(client):
     response = post(client, requests.get_new_year_fact())
 

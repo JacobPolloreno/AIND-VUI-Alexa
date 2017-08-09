@@ -6,6 +6,7 @@ Utils for testing
 
 import os
 import io
+import json
 import re
 import six
 import yaml
@@ -46,3 +47,13 @@ def get_num_included_phrases(results, fact_msgs):
                 included_fact_msgs.append(f_k)
 
     return len(set(included_fact_msgs)) > 1
+
+
+def has_year_intent_schema():
+    intents = json.load(_read_speechassets('IntentSchema.json'))['intents']
+    has_year_intent_schema = False
+    for intent in intents:
+        if intent['intent'] == 'GetNewYearFactIntent':
+            has_year_intent_schema = True
+
+    return has_year_intent_schema
