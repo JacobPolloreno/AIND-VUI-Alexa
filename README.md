@@ -1,7 +1,7 @@
 # Why?
 This repo is based on Udacity's [AIND-VUI-Alexa Project](https://github.com/udacity/AIND-VUI-Alexa). I've rewritten the Alexa node.js app using python and [Flask-ask](https://github.com/johnwheeler/flask-ask). I enjoy building alexa skills with Flask-ask so I wanted to share.
 
-# Project: Build an Alexa History Skill
+# Project: Build an Alexa History Skill In Python
 
 It's time to create your own Alexa Skill!.  In this project, you’ll build a fully functional skill for [Amazon’s Alexa](https://developer.amazon.com/alexa) that provides year-dated facts from AI History (or some other History of your choosing).
 ![Alexa skill process overview](images/skillOverview.png)
@@ -15,7 +15,7 @@ We highly recommend you complete the Space Geek lab in the classroom, which step
 ### Starter Code
 Install your starter code locally.
 * Download or clone the [starter code](https://github.com/JacobPolloreno/AIND-VUI-Alexa) from GitHub
-* Save it in a directory named `Alexa-History-Skill`.  It contains the following directories and files:
+* Save it in a directory named `AIND-VUI-Alexa`.  It contains the following directories and files:
     - **speechAssets/IntentSchema.json**  - intents definition for the interactive model
     - **speechAssets/SampleUtterances_en_US.txt** - utterances for the interactive model
     - **src/index.py** - skill logic and handlers to be run in AWS Lamda
@@ -30,14 +30,14 @@ Install your starter code locally.
 Check out [flask-ask tutorial](https://developer.amazon.com/blogs/post/8e8ad73a-99e9-4c0f-a7b3-60f92287b0bf/new-alexa-tutorial-deploy-flask-ask-skills-to-aws-lambda-with-zappa) blog post for a full step-by-step walk through that goes from creating a virtual env to deployment.
 
 ##### 1. Create virtual environment
-* Navigate to the `Alexa-History-Skill` directory of the starter code and open a terminal window. Next, create a python virtual environment.
+* Navigate to the `AIND-VUI-Alexa` directory of the starter code and open a terminal window. Next, create a python virtual environment.
 
 ```shell
 $ pip install virtualenv
 $ virtualenv venv
 ```
 
-* A directory named _venv_ now exists inside `Alexa-History-Skill` directory. The virtual environment will help Zappa identify necessary dependencies that need to be deployed with your code. Next, we need to activate it. 
+* A directory named _venv_ now exists inside `AIND-VUI-Alexa` directory. The virtual environment will help Zappa identify necessary dependencies that need to be deployed with your code. Next, we need to activate it. 
 
 ```shell
 $ source venv/bin/activate (Unix)
@@ -54,18 +54,25 @@ $ pip install -r requirements.txt
 ```
 
 ##### 3. Unit testing
-* You can now run the provided unit tests from the command line within the `Alexa-History-Skill` directory with the following command.  Try it now:
+* You can now run the provided unit tests from the command line within the `AIND-VUI-Alexa` directory with the following command.  Try it now:
 ```shell
-$ pytest
+$ pytest -rsx
 ```
 
-The test code is in four parts:  "Part 1", "Part 2", "Part 3", and "Starter Code". The starter code tests should pass and all others should fail. 
+The test code is in four parts:  "Part 1", "Part 2", "Part 3", and "Starter Code". The starter code tests should pass and all others should fail.
+
+	* **Note:** Some test are 'skipped' because something hasn't been implemented yet. The
+	  output gets really long and makes it hard to debug with the NotImplementedErros so I
+	  decided to skip the test and warn the user. However, in order to see that the test are
+	  skipped you'll need to run 'pytest' with 
 
 You can run each individual part like so:
 
 ```shell
-$ pytest -k src/tests/test_starter_code.py
+$ pytest -rsx src/tests/test_starter_code.py
 ```
+	* -r chars will show extra test summary info such as why some test are skipped. I chose to
+	  skip certain test if their prerequisites were not implemented yet.
 
 ##### 4. Flask-ask Coding
 * Make sure to checkout the documentation on the [Flask-ask Github Repo](https://github.com/johnwheeler/flask-ask). 
@@ -81,7 +88,7 @@ $ git checkout solution_part_1
 	$ npm install -g ngrok
 	```
 * You can try with the starter code.
-	1. Navigate to the `Alexa-History-Skill` directory, open a terminal, and run the app.
+	1. Navigate to the `AIND-VUI-Alexa` directory, open a terminal, and run the app.
 	
 			$ python index.py
 				* Running on http://127.0.0.1:5000/
