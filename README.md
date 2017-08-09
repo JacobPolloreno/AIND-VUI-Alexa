@@ -54,25 +54,18 @@ $ pip install -r requirements.txt
 ```
 
 ##### 3. Unit testing
-* You can now run the provided unit tests from the command line within the `AIND-VUI-Alexa` directory with the following command.  Try it now:
+* You can now run the provided unit tests from the command line within the `AIND-VUI-Alexa/src` directory with the following command.  Try it now:
 ```shell
-$ pytest -rsx
+$ pytest
 ```
 
 The test code is in four parts:  "Part 1", "Part 2", "Part 3", and "Starter Code". The starter code tests should pass and all others should fail.
 
-	* **Note:** Some test are 'skipped' because something hasn't been implemented yet. The
-	  output gets really long and makes it hard to debug with the NotImplementedErros so I
-	  decided to skip the test and warn the user. However, in order to see that the test are
-	  skipped you'll need to run 'pytest' with 
-
-You can run each individual part like so:
+You can run each individual part like so (from within the `src` directory):
 
 ```shell
-$ pytest -rsx src/tests/test_starter_code.py
+$ pytest tests/test_starter_code.py
 ```
-	* -r chars will show extra test summary info such as why some test are skipped. I chose to
-	  skip certain test if their prerequisites were not implemented yet.
 
 ##### 4. Flask-ask Coding
 * Make sure to checkout the documentation on the [Flask-ask Github Repo](https://github.com/johnwheeler/flask-ask). 
